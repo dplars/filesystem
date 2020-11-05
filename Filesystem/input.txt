@@ -1,0 +1,38 @@
+i 6 12
+z
+f /jefke 666 23 j
+z
+m /tmp
+z
+f tmp/print 666 72 p
+z
+u /jefke
+z
+l /tmp/print a0a
+z
+f extra 444 96 e
+z
+m /tmp/users
+z
+f /tmp/users/dom 444 0 d
+z
+l /a0a /tmp/bbb
+z
+u /a
+z
+u /a0a
+z
+f /tmp/print 666 36 q
+z
+u /tmp/users
+z
+u /tmp/users/dom
+z
+u /tmp/users
+z
+f /123456789 22 63 8
+z
+f tevol 444 41 t
+z
+u /1234567
+z
