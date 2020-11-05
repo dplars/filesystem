@@ -2,6 +2,63 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../Filesystem/#makf.c#">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/chmode.c">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/chuid.c">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/curd.c">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/fssubr.c">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/fstat.c">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/hfs copy.c">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/hfs copy.h">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/hfs.c">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/hfs.h">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/labo.pdf">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/lnk.c">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/makdir.c">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/makefile">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/makf.c">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/mkfs.c">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/namei.c">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/testfs">
+   </FileRef>
+   <FileRef
+      location = "group:../Filesystem/unlnk.c">
+   </FileRef>
+   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>
