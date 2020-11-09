@@ -19,12 +19,17 @@ void makfile(char *cpn,  short mode, short size, char opvul)
 	Inode werkInode;
 	memset(&werkInode, '\0',INOSIZE);
 	
-	printf("makFile %s voor %d  met %o : %d * %c tekens\n", 
+	printf("makFile %s voor %d  met %o : %d * %c tekens \n",
 				cpn,u.u_uid,mode,size,opvul);
 				
 	// superblok inlezen om inode te kunnen vinden
 	LeesSuperBlok();
-			
+    
+    for (int i = 0; i< 20; i++) {
+        printf("%c", cpn[i]);
+    }
+    printf("\n", cpn);
+    
 	// namei oproepen, geeft gevulde inode terug. deze inode wegschrijven in superblok
 	int inode = namei(cpn);
 	if(inode > 0){

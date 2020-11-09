@@ -15,7 +15,7 @@
 
 extern int	optind;
 extern char	*optarg;
-int	verbose;
+int	verbose = 0;
 
 main( int	argc, char	*argv[] )
 {
@@ -74,6 +74,7 @@ main( int	argc, char	*argv[] )
 			i++;
 			a2 = strtol(&str[i], &ptr, 8);      /* mode */
 			a3 = strtol(ptr+1, &ptr, 10);     /* lengte */
+            
 			makfile(cpn, (short)a2, (short)a3, *(ptr+1) );
 			break ;
 		case 'm' :

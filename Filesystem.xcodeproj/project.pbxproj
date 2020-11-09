@@ -18,8 +18,8 @@
 		6B3A622C25545A4F00553CCC /* makefile in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A621925545A4E00553CCC /* makefile */; };
 		6B3A622E25545A4F00553CCC /* hfs.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A621C25545A4E00553CCC /* hfs.c */; };
 		6B3A622F25545A4F00553CCC /* unlnk.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A621E25545A4F00553CCC /* unlnk.c */; };
-		6B3A623025545A4F00553CCC /* namei.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A621F25545A4F00553CCC /* namei.c */; };
 		6B3A623125545A4F00553CCC /* curd.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A622025545A4F00553CCC /* curd.c */; };
+		6B7DFF8325598DB7009ADC05 /* namei.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A621F25545A4F00553CCC /* namei.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,6 +57,7 @@
 		6B3A622125545A4F00553CCC /* labo.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = labo.pdf; sourceTree = "<group>"; };
 		6B3A622225545A4F00553CCC /* inputresultaat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputresultaat; sourceTree = "<group>"; };
 		6B3A622325545A4F00553CCC /* resultaat.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = resultaat.txt; sourceTree = "<group>"; };
+		6B7DFF7B25598A4A009ADC05 /* namei_STUB.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = namei_STUB.c; sourceTree = "<group>"; };
 		6B994F5F254B38640059C034 /* Filesystem */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Filesystem; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -93,6 +94,7 @@
 				6B3A621125545A4E00553CCC /* #makf.c# */,
 				6B3A621525545A4E00553CCC /* chmode.c */,
 				6B3A621025545A4E00553CCC /* chuid.c */,
+				6B7DFF7B25598A4A009ADC05 /* namei_STUB.c */,
 				6B3A622025545A4F00553CCC /* curd.c */,
 				6B3A621825545A4E00553CCC /* fssubr.c */,
 				6B3A621425545A4E00553CCC /* fstat.c */,
@@ -172,13 +174,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B7DFF8325598DB7009ADC05 /* namei.c in Sources */,
 				6B3A622F25545A4F00553CCC /* unlnk.c in Sources */,
 				6B3A622E25545A4F00553CCC /* hfs.c in Sources */,
 				6B3A622625545A4F00553CCC /* lnk.c in Sources */,
 				6B3A622A25545A4F00553CCC /* mkfs.c in Sources */,
 				6B3A622C25545A4F00553CCC /* makefile in Sources */,
 				6B3A623125545A4F00553CCC /* curd.c in Sources */,
-				6B3A623025545A4F00553CCC /* namei.c in Sources */,
 				6B3A622525545A4F00553CCC /* makf.c in Sources */,
 				6B3A622725545A4F00553CCC /* fstat.c in Sources */,
 				6B3A622825545A4F00553CCC /* chmode.c in Sources */,
