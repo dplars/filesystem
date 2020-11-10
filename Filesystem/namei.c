@@ -13,13 +13,15 @@
 #include "hfs.h"
 #include <ctype.h>
 
+
 short namei(char *cpn)
 {
+    verbose = 1;
 
     if (verbose) {
         printf("NAMEI \n");
         for (int i = 0; i< 20; i++) {
-            printf("%c", cpn[i]);
+            printf("%c\n", cpn[i]);
         }
         printf("char %c \n", cpn);
         
@@ -34,6 +36,7 @@ short namei(char *cpn)
 	Dir *dirp;
 	int terug=1;
 	int lus;
+    int gevonden = 0;
 	
 	// if padnaam start bij root = starten met /
 	memset(u.u_dirent.d_naam, '\0', NAMELEN);
@@ -160,6 +163,7 @@ short namei(char *cpn)
 						
 						naam=0;
 						terug=werkinodenummer;
+                        gevonden = 1;
 					}
 					//else
                     if ( dirp->d_ino == 0)
@@ -176,15 +180,18 @@ short namei(char *cpn)
 				if ( dirp->d_ino == 0)
 				{
 					u.u_diract=j*DIRLEN;
-                    terug = 0;
+                    if(gevonden !=1 ) {
+                        terug = 0;
+                    }
 				}
 				dirp++;
 			}
 		}
 	}
 	
-    if (verbose) {
+    
         printf ("namei goed verlopen met eindresultaat %d \n ", terug);
+    if (verbose) {
         printf("namei bestand  %s  %c \n", cpn,cpn[0]);
         printf("u.u_diract: %d",u.u_diract);
     }

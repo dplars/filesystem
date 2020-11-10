@@ -15,18 +15,23 @@
 void lnk( char *cpn, char *new)
 {
 	printf("Link %s %s\n", cpn, new);
+    char val[DIRLEN];
+    strncpy(&val, cpn, DIRLEN);
     
-    LeesSuperBlok();
     
     // oproep: link(bron, doel);
     // voor bron checken of de file bestaat
-    int bronInode = namei(cpn);
+
+    // cpn is de volledige string met de andere file er bij, deze splitsen
+    printf("%s", cpn);  // -> geeft gewenste output, maar loop fout in namei: nmaei krijgt alles aan elkaar binnen
+    int bronInode = namei(&val);
     if (bronInode <= 0) {
         // De bron inode bestaat nog niet, kan geen file linken die niet bestaat
         printf("Het bron bestand bestaat niet \n");
         u.u_error = GEENINO;
         return;
     }
+    LeesSuperBlok();
     
     // Bron bestand bestaat wel, inode nummer is gegeven in bronInode
     // Inode uitlezen
