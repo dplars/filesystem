@@ -15,8 +15,17 @@
 void lnk( char *cpn, char *new)
 {
 	printf("Link %s %s\n", cpn, new);
-    char val[DIRLEN];
-    strncpy(&val, cpn, DIRLEN);
+    char val[BLOKSIZE];
+    
+    // juiste waarden naar namei meegeven
+//    int i = 2;
+//    int counter = 0;
+//    while ( cpn[i] != ' ' ) {
+//        val[counter] = cpn[i];
+//        counter++;
+//        i++;
+//    }
+    strncpy(&val, cpn, BLOKSIZE);
     
     
     // oproep: link(bron, doel);
@@ -24,7 +33,7 @@ void lnk( char *cpn, char *new)
 
     // cpn is de volledige string met de andere file er bij, deze splitsen
     printf("%s", cpn);  // -> geeft gewenste output, maar loop fout in namei: nmaei krijgt alles aan elkaar binnen
-    int bronInode = namei(&val);
+    int bronInode = namei(val);
     if (bronInode <= 0) {
         // De bron inode bestaat nog niet, kan geen file linken die niet bestaat
         printf("Het bron bestand bestaat niet \n");

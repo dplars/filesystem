@@ -71,32 +71,37 @@ void makfile(char *cpn,  short mode, short size, char opvul)
 		int teller = 0;	// teller voor weg te schrijven in inode
 		
 		printf("aantal blokken te zoeken %d \naantal blokken nodig %d\n", sbk.s_blok, aant_blokken);	// 6
-		int i = 0;
-		for(i = 1; i <= sbk.s_blok; i++) {
-			printf("blok zoeken: %d \n",i);
-			if(IsBfree(i)) {
-				// blok is nog vrij, alloceren
-				SetBalloc(i);
-				werkInode.i_blok[teller] = i;
-				teller++;
-				if(teller >= aant_blokken) {
-					break;
-				}
-			}
-		}
-		if( i > sbk.s_blok) {
-			printf("niet voldoende vrije blokken gevonden tot %d gezocht \n", i);
-			// filesize aanpassen aan de grootte van aantal gevonden blokken
-			size = teller*BLOKSIZE;
-			printf("nieuwe size van de file toevoegen: %d \n", size);
-			u.u_error = GEENBLO;
-			
-			// aant blokken opnieuw bereken
-			aant_blokken = size/BLOKSIZE;
-			if(size%BLOKSIZE > 0) {
-				aant_blokken++;
-			}
-		}
+        if (size != 0) {
+            int i = 0;
+            for(i = 1; i <= sbk.s_blok; i++) {
+                printf("blok zoeken: %d \n",i);
+                if(IsBfree(i)) {
+                    // blok is nog vrij, alloceren
+                    SetBalloc(i);
+                    werkInode.i_blok[teller] = i;
+                    teller++;
+                    if(teller >= aant_blokken) {
+                        break;
+                    }
+                }
+            }
+            if( i > sbk.s_blok) {
+                printf("niet voldoende vrije blokken gevonden tot %d gezocht \n", i);
+                // filesize aanpassen aan de grootte van aantal gevonden blokken
+                size = teller*BLOKSIZE;
+                printf("nieuwe size van de file toevoegen: %d \n", size);
+                u.u_error = GEENBLO;
+                
+                // aant blokken opnieuw bereken
+                aant_blokken = size/BLOKSIZE;
+                if(size%BLOKSIZE > 0) {
+                    aant_blokken++;
+                }
+            }
+        }
+        else {
+            printf("bestandsgrootte is NUL, kan geen file blok alloceren \n");
+        }
 		
 		
 		
@@ -118,16 +123,23 @@ void makfile(char *cpn,  short mode, short size, char opvul)
 		// hoeveel blokken moeten geschreven worden
 		
 		printf("aant blokken: %d voor %d grootte \n",aant_blokken, size);
-		char buf[BLOKSIZE];
-		for (int j = 0; j<aant_blokken; j++) {
-			for (int i = 0; i<size-(BLOKSIZE*j); i++) {
-				buf[i] = opvul;	
-			}
-			printf("schrijfblok werkinode: %d \n",werkInode.i_blok[j]);
-			//SetBalloc(werkInode.i_blok[j]);
-			SchrijfBlok(werkInode.i_blok[j], buf);
-			memset(&buf, '0', BLOKSIZE);
-		}
+        if (aant_blokken != 0) {
+            // grootte van de file is nul dus geen blokken alloceren
+            char buf[BLOKSIZE];
+            for (int j = 0; j<aant_blokken; j++) {
+                for (int i = 0; i<size-(BLOKSIZE*j); i++) {
+                    buf[i] = opvul;
+                }
+                printf("schrijfblok werkinode: %d \n",werkInode.i_blok[j]);
+                SetBalloc(werkInode.i_blok[j]);
+                SchrijfBlok(werkInode.i_blok[j], buf);
+                memset(&buf, '0', BLOKSIZE);
+            }
+        }
+        else {
+            printf("File grootte NUL, ik ben niet dom\n");
+            
+        }
 		SchrijfSuperBlok();
 		
 		// nog verder werken als 3e file wordt toegevoegd -> zien dat dat in een echt vrij blok wordt gestoken en niet in blok 0
@@ -147,12 +159,14 @@ void schrijf_parent(int inodenr) {
 	
 	int lengte;
 	int toevoegplaats;
+    int schrijfblok_plus_een = 0;
 	if (pInode.i_size == u.u_diract) {
 		// de directory is gevuld -> geen gaatje, achteraan toevoegen na de laatst gevulde positie van de parent inode
 			
 		// als oorspronkelijke size een veelvoud van 32 is, een nieuw datablok maken omdat de vorige helemaal gevuld is
 		if(pInode.i_size%BLOKSIZE != 0) {
 			// geen veelvoud van 32, dus kan achteraan gewoon toegevoegd worden in het datablok dat al beschreven staat in de parent
+            printf("achteraan toevoegen\n");
 			lengte = u.u_diract+DIRLEN;	// 8 bijtellen om het einde van het blok aan te geven
 			toevoegplaats = u.u_diract;
 		}
@@ -160,9 +174,10 @@ void schrijf_parent(int inodenr) {
 			// wel een veelvoud van 32, dus een nieuw datablok zoeken en gebruiken voor deze file
 			// nieuw datablok ophalen -> leeg blok zoeken
 			// in sbk zoeken naar vrije datablokken
-			int vrijblok = 0;
+			int vrijblok = 1;
 			int i = 1;
 			while (!IsBfree(i)) {
+                printf("vrij blok zoeken om parent te vergroten blok nakijken: %d \n", i);
 				if ( i > sbk.s_blok) {
 					// geen vrij blok gevonden
 					printf("geen vrij blok gevonden in schrijf_parent \n");
@@ -173,6 +188,7 @@ void schrijf_parent(int inodenr) {
 			}
 			SetBalloc(i);
 			vrijblok = i;
+            printf("waarde van vrijblok %d \n", vrijblok);
 			// vrij blok gevonden
 			
 			// dit blok toevoegen aan de parent inode
@@ -187,16 +203,26 @@ void schrijf_parent(int inodenr) {
 		// gewoon invullen op de plaats van diract
 		toevoegplaats = u.u_diract;
 		lengte = pInode.i_size;
+        printf("invullen op plaats van diract toevoegplaats %d \n", toevoegplaats);
+        schrijfblok_plus_een = 1;
 	}
 	
 	// toevoegen in datablok op plaats waar parent gegevens staan
 	// datablok lezen
 	// plaats in datablok berekenen
+    
+    
 	int index = pInode.i_size/BLOKSIZE;
-	int schrijfblokop = pInode.i_blok[index];
+    printf("index for schrijfblokop : %d \n pinode.i_size/bloksize : %d\n", index, pInode.i_size/BLOKSIZE);
+    int schrijfblokop = pInode.i_blok[index];
+    if (schrijfblok_plus_een) {
+        schrijfblokop+=1;
+    }
+	
 	
 	// voorbereiden chars om weg te schrijven
 	char buf[BLOKSIZE];
+    memset(&buf, '\0',BLOKSIZE);
 	Dir *dirp;
 	dirp = (Dir*)buf;
 	
@@ -204,8 +230,8 @@ void schrijf_parent(int inodenr) {
 	LeesBlok(schrijfblokop, buf);
 	
 	// een aantal keer dirp verhogen naargelang de plaats in de blok 
-	// als datablok op is, dirp terug vooraan plaatsen 
-
+	// als datablok op is, dirp terug vooraan plaatsen
+    
 	// delen met rest
 	if ( toevoegplaats%BLOKSIZE >= 0 ) {
 		dirp += toevoegplaats%BLOKSIZE/DIRLEN;

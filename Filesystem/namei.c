@@ -23,7 +23,6 @@ short namei(char *cpn)
         for (int i = 0; i< 20; i++) {
             printf("%c\n", cpn[i]);
         }
-        printf("char %c \n", cpn);
         
     }
 	
@@ -76,6 +75,8 @@ short namei(char *cpn)
     // voor makdir kan het ook een \0 zijn
     while(!isdigit(cpn[teller]) && cpn[teller] != '\0')
 	{
+        
+        //gevonden = 0;
 		
 		// lees volgende component van padnaam uit input
 		//printf(" er is nog padnaam met charchter %c \n" , cpn[teller]);
@@ -92,6 +93,7 @@ short namei(char *cpn)
 			{
 				break;
 			}
+            gevonden = 0;
 		}
 		teller++;
 		// nu hebben we in u.u_dirent.d_naam[naam] bijvoorbeeld temp staan
@@ -109,6 +111,15 @@ short namei(char *cpn)
 		u.u_pdir=werkinodenummer;
 		for(int i=0;i<intelezenblokken;i++)
 		{
+            
+            if (gevonden) {
+                break;
+            }
+            //u.u_pdir=werkinodenummer;
+            LeesBlok(werkinode.i_blok[i], buf);
+            DrukBlok(buf,BLOKSIZE); // 32 is bij default
+            // output: 1 . 0 0 0 0 0 0 1 . . 0 0 0 0 0 0 j e f 0 0 0 0 3 t m p 0 0 0 0
+            
             if (verbose) {printf("for lus in te lezen blokken");}
 			if ((werkinode.i_mode & S_IFMT) != S_IFDIR)
 						{
@@ -118,10 +129,7 @@ short namei(char *cpn)
 							//u.u_pdir= de oude; niet nodig mss lijn 100 aanpassen naar hierna pas
 							return -1;
 						} 
-			//u.u_pdir=werkinodenummer;
-			LeesBlok(werkinode.i_blok[i], buf);
-			DrukBlok(buf,BLOKSIZE); // 32 is bij default
-			// output: 1 . 0 0 0 0 0 0 1 . . 0 0 0 0 0 0 j e f 0 0 0 0 3 t m p 0 0 0 0
+			
 			
 			
 			// ingelezen in array buf en typecasten naar een dir structuur
@@ -143,7 +151,12 @@ short namei(char *cpn)
 				
 			if (intelezenblokken>1)
 			{
-				lus=werkinode.i_size-BLOKSIZE;
+                printf("intelezen blokken = %d; werkinode?i_size %d \n", intelezenblokken, werkinode.i_size);
+				lus=werkinode.i_size-DIRLEN;
+                if (werkinode.i_size%BLOKSIZE) {
+                    lus= ((werkinode.i_size-DIRLEN)/BLOKSIZE)*BLOKSIZE-DIRLEN;     // als lus = 40 -> 32 ingeven om mee verder te werken
+                }
+                printf("lus = %d \n", lus);
 			}
 			for( int j=0; j<=lus/DIRLEN;j++)
 			{
@@ -165,7 +178,7 @@ short namei(char *cpn)
 						terug=werkinodenummer;
                         gevonden = 1;
 					}
-					//else
+					else
                     if ( dirp->d_ino == 0)
 					{
                         if (verbose) {printf("deze is recent verwijderd en innodde is 0\n");}
@@ -176,17 +189,33 @@ short namei(char *cpn)
 				else
 				{
                     if (verbose) {printf("nog niet gevonden \n");}
+                    if (!gevonden) {
+                        terug = 0;
+                    }
+                    
+                    //u.u_diract=j*DIRLEN;
 				}
 				if ( dirp->d_ino == 0)
 				{
-					u.u_diract=j*DIRLEN;
+                    printf("inode 0 op het einde, gevonden: %d \n", gevonden);
+					
+                    u.u_diract=j*DIRLEN;
                     if(gevonden !=1 ) {
                         terug = 0;
                     }
+                    // helpt link met leeg plaatsje vinden en diract juist zetten
+                    gevonden = 1;
+                    
 				}
+                if (j == BLOKSIZE/DIRLEN && !gevonden) {
+                    // tot op het einde moeten zoeken
+                    u.u_diract=j*DIRLEN;
+                    printf("tot op einde moeten zoeken in blok: u.u_diract = %d j = %d \n", u.u_diract,j);
+                }
 				dirp++;
 			}
 		}
+        
 	}
 	
     

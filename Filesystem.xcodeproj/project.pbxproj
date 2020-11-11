@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B0E3049255C6F50001E8055 /* unlnk_aph.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B0E3048255C6F50001E8055 /* unlnk_aph.c */; };
 		6B3A622425545A4F00553CCC /* chuid.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A621025545A4E00553CCC /* chuid.c */; };
 		6B3A622525545A4F00553CCC /* makf.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A621225545A4E00553CCC /* makf.c */; };
 		6B3A622625545A4F00553CCC /* lnk.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A621325545A4E00553CCC /* lnk.c */; };
@@ -18,7 +19,6 @@
 		6B3A622C25545A4F00553CCC /* makefile in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A621925545A4E00553CCC /* makefile */; };
 		6B3A622E25545A4F00553CCC /* hfs.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A621C25545A4E00553CCC /* hfs.c */; };
 		6B3A623125545A4F00553CCC /* curd.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A622025545A4F00553CCC /* curd.c */; };
-		6B79A869255B031B00BD5B32 /* unlnk.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B79A868255B031B00BD5B32 /* unlnk.c */; };
 		6B7DFF8325598DB7009ADC05 /* namei.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A621F25545A4F00553CCC /* namei.c */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +35,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6B0E3048255C6F50001E8055 /* unlnk_aph.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unlnk_aph.c; sourceTree = "<group>"; };
 		6B3A620E25545A4E00553CCC /* testfs */ = {isa = PBXFileReference; lastKnownFileType = file; path = testfs; sourceTree = "<group>"; };
 		6B3A620F25545A4E00553CCC /* hfs copy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hfs copy.h"; sourceTree = "<group>"; };
 		6B3A621025545A4E00553CCC /* chuid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chuid.c; sourceTree = "<group>"; };
@@ -57,7 +58,7 @@
 		6B3A622125545A4F00553CCC /* labo.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = labo.pdf; sourceTree = "<group>"; };
 		6B3A622225545A4F00553CCC /* inputresultaat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputresultaat; sourceTree = "<group>"; };
 		6B3A622325545A4F00553CCC /* resultaat.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = resultaat.txt; sourceTree = "<group>"; };
-		6B79A868255B031B00BD5B32 /* unlnk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unlnk.c; sourceTree = "<group>"; };
+		6B79A868255B031B00BD5B32 /* unlnk_bram_v1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unlnk_bram_v1.c; sourceTree = "<group>"; };
 		6B7DFF7B25598A4A009ADC05 /* namei_STUB.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = namei_STUB.c; sourceTree = "<group>"; };
 		6B994F5F254B38640059C034 /* Filesystem */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Filesystem; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -92,7 +93,8 @@
 		6B994F61254B38640059C034 /* Filesystem */ = {
 			isa = PBXGroup;
 			children = (
-				6B79A868255B031B00BD5B32 /* unlnk.c */,
+				6B0E3048255C6F50001E8055 /* unlnk_aph.c */,
+				6B79A868255B031B00BD5B32 /* unlnk_bram_v1.c */,
 				6B3A621125545A4E00553CCC /* #makf.c# */,
 				6B3A621525545A4E00553CCC /* chmode.c */,
 				6B3A621025545A4E00553CCC /* chuid.c */,
@@ -180,6 +182,7 @@
 				6B3A622E25545A4F00553CCC /* hfs.c in Sources */,
 				6B3A622625545A4F00553CCC /* lnk.c in Sources */,
 				6B3A622A25545A4F00553CCC /* mkfs.c in Sources */,
+				6B0E3049255C6F50001E8055 /* unlnk_aph.c in Sources */,
 				6B3A622C25545A4F00553CCC /* makefile in Sources */,
 				6B3A623125545A4F00553CCC /* curd.c in Sources */,
 				6B3A622525545A4F00553CCC /* makf.c in Sources */,
@@ -187,7 +190,6 @@
 				6B3A622825545A4F00553CCC /* chmode.c in Sources */,
 				6B3A622425545A4F00553CCC /* chuid.c in Sources */,
 				6B3A622B25545A4F00553CCC /* fssubr.c in Sources */,
-				6B79A869255B031B00BD5B32 /* unlnk.c in Sources */,
 				6B3A622925545A4F00553CCC /* makdir.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

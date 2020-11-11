@@ -84,6 +84,7 @@ void makdir(char *cpn)
 		
 		// voorbereiden chars om weg te schrijven
 		char buf[BLOKSIZE];
+        memset(&buf, '\0',BLOKSIZE);
 		Dir *dirp;
 		dirp = (Dir*)buf;
 		
